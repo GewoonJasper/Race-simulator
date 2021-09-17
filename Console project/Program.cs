@@ -1,4 +1,7 @@
 ﻿using System;
+using Model;
+using Controller;
+using System.Threading;
 
 namespace Console_project
 {
@@ -6,7 +9,15 @@ namespace Console_project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Data.Initialize();
+            Data.NextRace();
+
+            Console.WriteLine(Data.CurrentRace.Track.name);
+
+            for (; ; )
+            {
+                Thread.Sleep(100);
+            }
         }
     }
 }
