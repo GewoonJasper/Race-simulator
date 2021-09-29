@@ -16,18 +16,16 @@ namespace Controller
         public static void Initialize ()
         {
             competition = new Competition();
-            addParticipants();
-            addTracks();
+            AddParticipants();
+            AddTracks();
         }
 
-        public static void addParticipants()
+        public static void AddParticipants()
         {
-            Driver driver1 = new Driver();
-            Driver driver2 = new Driver();
-            Driver driver3 = new Driver();
-            Driver driver4 = new Driver();
-
-            competition.Participants = new List<IParticipant>();
+            Driver driver1 = new Driver("Verstappen", 0, IParticipant.TeamColors.Blue);
+            Driver driver2 = new Driver("Hamilton", 0, IParticipant.TeamColors.Grey);
+            Driver driver3 = new Driver("Norris", 0, IParticipant.TeamColors.Yellow);
+            Driver driver4 = new Driver("Sainz", 0, IParticipant.TeamColors.Red);
 
             competition.Participants.Add(driver1);
             competition.Participants.Add(driver2);
@@ -35,29 +33,58 @@ namespace Controller
             competition.Participants.Add(driver4);
         }
 
-        public static void addTracks()
+        public static void AddTracks()
         {
-            SectionTypes[] baan = new SectionTypes[7];
-            baan[0] = SectionTypes.StartGrid;
-            baan[1] = SectionTypes.Finish;
-            baan[2] = SectionTypes.RightCorner;
-            baan[3] = SectionTypes.RightCorner;
-            baan[4] = SectionTypes.Straight;
-            baan[5] = SectionTypes.RightCorner;
-            baan[6] = SectionTypes.RightCorner;
-            Track track1 = new Track("RightOval", baan);
 
-            SectionTypes[] baan2 = new SectionTypes[7];
-            baan2[0] = SectionTypes.StartGrid;
-            baan2[1] = SectionTypes.Finish;
-            baan2[2] = SectionTypes.LeftCorner;
-            baan2[3] = SectionTypes.LeftCorner;
-            baan2[4] = SectionTypes.Straight;
-            baan2[5] = SectionTypes.LeftCorner;
-            baan2[6] = SectionTypes.LeftCorner;
-            Track track2 = new Track("LeftOval", baan2);
+            SectionTypes[] baan1 = new SectionTypes[] { SectionTypes.StartGrid,
+                                                        SectionTypes.Finish,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.RightCorner 
+                                                      };
+            Track track1 = new Track("EpicTrack", baan1);
 
-            competition.Tracks = new Queue<Track>();
+            SectionTypes[] baan2 = new SectionTypes[] { SectionTypes.StartGrid,
+                                                        SectionTypes.StartGrid,
+                                                        SectionTypes.StartGrid,
+                                                        SectionTypes.Finish,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.Straight,
+                                                        SectionTypes.LeftCorner,
+                                                        SectionTypes.RightCorner,
+                                                        SectionTypes.RightCorner
+                                                      };
+            Track track2 = new Track("Bridges", baan2);
 
             competition.Tracks.Enqueue(track1);
             competition.Tracks.Enqueue(track2);

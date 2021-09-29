@@ -17,22 +17,26 @@ namespace Controller
 
         private Dictionary<Section, SectionData> _positions;
 
+        public Race(Track track, List<IParticipant> participants)
+        {
+            this.Track = track;
+            this.Participants = participants;
+            this.StartTime = DateTime.Now;
+
+            _positions = new Dictionary<Section, SectionData>();
+
+            SetStartPositions(track, participants);
+        }
+
         public SectionData GetSectionData(Section section)
         {
-             if (_positions[section] == null)
+             if (!_positions.ContainsKey(section))
              {
                 SectionData data = new SectionData();
                 _positions.Add(section, data);
              }
 
             return _positions[section];
-        }
-
-        public Race(Track track, List<IParticipant> participants)
-        {
-            this.Track = track;
-            this.Participants = participants;
-            this.StartTime = DateTime.Now;
         }
 
         public void RandomizeEquipment()
@@ -42,6 +46,43 @@ namespace Controller
                 driver.Equipment.Quality = _random.Next();
                 driver.Equipment.Performance = _random.Next();
             }
+        }
+
+        public void SetStartPositions(Track track, List<IParticipant> participants)
+        {
+            int Drivers = participants.Count();
+            int Driver = 0;
+
+            foreach (Section sectie in track.Sections) 
+            {
+                if (sectie.SectionType.Equals(Section.SectionTypes.StartGrid))
+                {
+                    SectionData GridData = GetSectionData(sectie);
+                    int i = 0;
+
+                    while (i < 2)
+                    {
+                        if (Drivers > Driver)
+                        {
+                        
+                            if (GridData.Left == null)
+                            {
+                                GridData.Left = participants[Driver];
+                                _positions[sectie] = GridData;
+                            }
+                            else if (GridData.Right == null)
+                            {
+                                GridData.Right = participants[Driver];
+                                _positions[sectie] = GridData;
+                            }
+                            Driver++;
+                        }
+                        i++;
+                    }
+
+                }
+            }
+
         }
     }
 }

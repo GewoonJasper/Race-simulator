@@ -16,14 +16,24 @@ namespace Model
         {
             Sections = new LinkedList<Section>();
             this.name = name;
-            foreach (SectionTypes section in sections) 
+            Sections = changeTypesToSections(sections);
+        }
+
+        private LinkedList<Section> changeTypesToSections(SectionTypes[] sections)
+        {
+            LinkedList<Section> S = new LinkedList<Section>();
+
+            foreach (SectionTypes section in sections)
             {
                 Section newSection = new Section
                 {
                     SectionType = section
                 };
-                Sections.AddLast(newSection);
+
+                S.AddLast(newSection);
             }
+
+            return S;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Console_project
             Data.Initialize();
             Data.NextRace();
 
-            Console.WriteLine(Data.CurrentRace.Track.name);
+            Visualisation.DrawTrack(Data.CurrentRace.Track);
 
             for (; ; )
             {
