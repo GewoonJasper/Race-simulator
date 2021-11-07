@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfApp.StatsParticipants"
+﻿<Window x:Name="GameGrid" x:Class="WpfApp.StatsParticipants"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,24 +6,28 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="StatsParticipantsWindow" Height="720" Width="1080">
+    <Window.DataContext>
+        <local:GameData/>
+    </Window.DataContext>
     <Grid x:Name="Points" Background="#FF00FF46">
         <Grid.DataContext>
             <local:GameData/>
         </Grid.DataContext>
-        <Label Content="Drivers" HorizontalAlignment="Left" Margin="85,68,0,0" VerticalAlignment="Top" FontSize="72"/>
-        <Label x:Name="Driver1" Content="{Binding driver1}" HorizontalAlignment="Left" Margin="139,180,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="Driver2" Content="{Binding driver2}" HorizontalAlignment="Left" Margin="139,220,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="Driver3" Content="{Binding driver3}" HorizontalAlignment="Left" Margin="139,260,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="Driver4" Content="{Binding driver4}" HorizontalAlignment="Left" Margin="139,300,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="Driver5" Content="{Binding driver5}" HorizontalAlignment="Left" Margin="139,340,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="Driver6" Content="{Binding driver6}" HorizontalAlignment="Left" Margin="139,380,0,0" VerticalAlignment="Top" FontSize="48"/>
-        
-        <Label Content="Points" HorizontalAlignment="Left" Margin="685,68,0,0" VerticalAlignment="Top" FontSize="72"/>
-        <Label x:Name="PointsDriver1" Content="{Binding pointsDriver1}" HorizontalAlignment="Left" Margin="750,180,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="PointsDriver2" Content="{Binding pointsDriver2}" HorizontalAlignment="Left" Margin="750,220,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="PointsDriver3" Content="{Binding pointsDriver3}" HorizontalAlignment="Left" Margin="750,260,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="PointsDriver4" Content="{Binding pointsDriver4}" HorizontalAlignment="Left" Margin="750,300,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="PointsDriver5" Content="{Binding pointsDriver5}" HorizontalAlignment="Left" Margin="750,340,0,0" VerticalAlignment="Top" FontSize="48"/>
-        <Label x:Name="PointsDriver6" Content="{Binding pointsDriver6}" HorizontalAlignment="Left" Margin="750,380,0,0" VerticalAlignment="Top" FontSize="48"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListViewItem Grid.Row="1" Grid.Column="1" Name="DriversCars"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="Drivers" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView Grid.Row="1" Grid.Column="1" Name="DriversView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="Points" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView Grid.Row="1" Grid.Column="2" Name="DriversPointsView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

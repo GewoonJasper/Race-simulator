@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using static Model.Section;
 
@@ -150,6 +151,11 @@ namespace WpfApp
                     this.TrackImage.Source = null;
                     this.TrackImage.Source = WPFVisualisation.DrawTrack(e.Track);
                 }));
+
+            this.Dispatcher.Invoke(() =>
+            {
+                _gameData.RefreshScreens(_participantsScreen, _raceScreen);
+            });
         }
 
         public void OnRaceChanged(Object o, EventArgs e)
@@ -164,11 +170,13 @@ namespace WpfApp
         {
             Application.Current.Shutdown();
         }
+        
         private void MenuItem_Race_Click(object sender, RoutedEventArgs e)
         {
             _raceScreen = new StatsRace();
             _raceScreen.Show();
         }
+
         private void MenuItem_Participants_Click(object sender, RoutedEventArgs e)
         {
             _participantsScreen = new StatsParticipants();

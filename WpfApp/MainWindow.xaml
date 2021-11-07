@@ -11,8 +11,6 @@
     </Window.DataContext>
     <Grid x:Name="GameGrid" Background="#FF00FF46">
         <Image x:Name="TrackImage" Margin="30,60,30,00"/>
-        <Label Content="{Binding TrackName}" Margin="10,25,664,548" FontSize="48"/>
-        <Label Content="{Binding nextPoints}" Margin="609,52,65,521" FontSize="48"/>
         <DockPanel LastChildFill="False" Margin="485,0,485,654">
             <Menu Width="57" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top">
                 <MenuItem Header="Menu" IsEnabled="True">

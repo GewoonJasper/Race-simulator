@@ -35,8 +35,7 @@ namespace Controller
         private int _sectionLength;
         private int _raceLenght;
         private int _maxLaps;
-        public int _points { get; set; }
-        private List<IParticipant> _finished;
+        private int _points { get; set; }
 
         // Constructor klasse Race
         public Race(Track track, List<IParticipant> participants)
@@ -147,7 +146,6 @@ namespace Controller
             {
                 p.Laps = 0;
             }
-            _finished = new List<IParticipant>();
             _sectionLength = 80;
             _raceLenght = 5000;
             _maxLaps = 2;//_raceLenght / (track.Sections.Count * _sectionLength);
@@ -156,7 +154,7 @@ namespace Controller
                 _maxLaps = 2;
             }
 
-            _points = 12;
+            _points = Participants.Count * 2;
         }
 
         // Start de timer, en dus de race
@@ -249,7 +247,8 @@ namespace Controller
                     }
                     else
                     {
-                        _finished.Add(currentSectionData.Left);
+                        currentSectionData.Left.Points += _points;
+                        _points -= 2;
                         currentSectionData.Left = null;
                     }
                 }
@@ -302,7 +301,8 @@ namespace Controller
                     }
                     else
                     {
-                        _finished.Add(currentSectionData.Right);
+                        currentSectionData.Right.Points += _points;
+                        _points -= 2;
                         currentSectionData.Right = null;
                     }
                 }
@@ -311,7 +311,7 @@ namespace Controller
             // Event, roept de methode OnDriversChanged aan in Visualisation, welke de baan tekent
             DriversChanged?.Invoke(this, dcArgs);
             
-            if (_finished.Count == Participants.Count)
+            if (_points == 0)
             {
                 RaceOver();
             }
@@ -344,12 +344,6 @@ namespace Controller
         {
             StopTimer();
             DriversChanged = null;
-
-            foreach (IParticipant participant in _finished)
-            {
-                participant.Points += _points;
-                _points -= 2;
-            }
             
             Data.NextRace(Data.Competition);
         }
