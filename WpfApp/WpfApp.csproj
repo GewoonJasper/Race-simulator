@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Art\cornerDownLeft.png" />
+    <None Remove="Art\cornerDownRight.png" />
+    <None Remove="Art\cornerLeftDown.png" />
+    <None Remove="Art\cornerRightDown.png" />
+    <None Remove="Art\finish.png" />
+    <None Remove="Art\redCar.png" />
+    <None Remove="Art\startGrid.png" />
+    <None Remove="Art\straightHorizontal.png" />
+    <None Remove="Art\straightVertical.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Art\cornerDownLeft.png" />
+    <Content Include="Art\cornerDownRight.png" />
+    <Content Include="Art\cornerLeftDown.png" />
+    <Content Include="Art\cornerRightDown.png" />
+    <Content Include="Art\finish.png" />
+    <Content Include="Art\redCar.png" />
+    <Content Include="Art\startGrid.png" />
+    <Content Include="Art\straightHorizontal.png" />
+    <Content Include="Art\straightVertical.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Console project\Console project.csproj" />
+    <ProjectReference Include="..\Controller\Controller.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="StatsParticipants.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatsRace.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1080">
+    <Window.DataContext>
+        <local:GameData/>
+    </Window.DataContext>
+    <Grid x:Name="GameGrid" Background="#FF00FF46">
+        <Image x:Name="TrackImage" Margin="30,60,30,00"/>
+        <Label Content="{Binding TrackName}" Margin="10,25,664,548" FontSize="48"/>
+        <Label Content="{Binding nextPoints}" Margin="609,52,65,521" FontSize="48"/>
+        <DockPanel LastChildFill="False" Margin="485,0,485,654">
+            <Menu Width="57" Height="20" DockPanel.Dock="Top" VerticalAlignment="Top">
+                <MenuItem Header="Menu" IsEnabled="True">
+                    <MenuItem Header="Participants" Click="MenuItem_Participants_Click"/>
+                    <MenuItem Header="Race" Click="MenuItem_Race_Click"/>
+                    <MenuItem Header="{Binding StartPauze}" Click="MenuItem_PauzeStart_Click"/>
+                    <MenuItem Header="Exit" Click="MenuItem_Exit_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
@@ -10,7 +6,8 @@ namespace Model
     {
         public String Name { get; set; }
         public int Points { get; set; }
-        public IEquipment Equipment { get; set; }
+        public Car Car { get; set; }
+        public int Laps { get; set; }
         public TeamColors TeamColor { get; set; }
 
         public enum TeamColors
