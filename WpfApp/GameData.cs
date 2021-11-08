@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using Controller;
 using Model;
+using System.Linq;
 
 namespace WpfApp
 {
@@ -13,67 +14,13 @@ namespace WpfApp
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string StartPauze
-        {
-            get => Data.CurrentRace?.StartPauzeer();
-            set => Data.CurrentRace?.StartPauzeer(); //TODO pauzeer race veranderd niet in start race
-        }
-        
-        public string TrackName
-        {
-            get => Data.CurrentRace?.Track.Name;
-            set => TrackName = "";
-        }
+        public string PauseButton => Data.CurrentRace?.GetPauseButton();
+        public string TrackName => Data.CurrentRace?.Track.Name;
+        public string MaxLaps => Data.CurrentRace?.MaxLaps.ToString();
+        public List<IParticipant> Drivers => Data.Competition?.Participants;
+        public List<IParticipant> Leaderboard => Data.CurrentRace?.GetLeaderboard();
 
-        public List<string> Drivers
-        {
-            get
-            {
-                List<string> driverList = new List<string>();
-                foreach (IParticipant participant in Data.Competition?.Participants)
-                {
-                    driverList.Add(participant.Name);
-                }
-
-                return driverList;
-            }
-            set
-            {
-                List<string> driverList = new List<string>();
-                foreach (IParticipant participant in Data.Competition?.Participants)
-                {
-                    driverList.Add(participant.Name);
-                }
-
-                Drivers = driverList;
-            }
-        }//TODO linq maken ipv foreach
-
-        public List<string> DriversPoints
-        {
-            get
-            {
-                List<string> driverList = new List<string>();
-                foreach (IParticipant participant in Data.Competition?.Participants)
-                {
-                    driverList.Add(participant.Points.ToString());
-                }
-
-                return driverList;
-            }
-            set
-            {
-                List<string> driverList = new List<string>();
-                foreach (IParticipant participant in Data.Competition?.Participants)
-                {
-                    driverList.Add(participant.Points.ToString());
-                }
-
-                DriversPoints = driverList;
-            }
-        }//TODO linq maken ipv foreach
-
-        public GameData(){ }
+        public GameData(){}
 
         public void OnPropertyChanged(object o, EventArgs e)
         {
@@ -83,6 +30,7 @@ namespace WpfApp
         public void RefreshScreens(StatsParticipants participantsScreen, StatsRace raceScreen)
         {
             participantsScreen?.RefreshComponents();
+            raceScreen?.RefreshComponents();
         }
     }
 }

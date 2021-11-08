@@ -127,7 +127,7 @@ namespace WpfApp
 
                 if (driversInSection[0] != null)
                 {
-                    Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[0]));
+                    Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[0], true));
 
                     switch (orientation)
                     {
@@ -150,7 +150,7 @@ namespace WpfApp
                 }
                 if (driversInSection[1] != null)
                 {
-                    Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[1]));
+                    Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[1], true));
 
                     switch (orientation)
                     {
@@ -283,26 +283,26 @@ namespace WpfApp
             return participants;
         }
 
-        public static string getCar(IParticipant p)
+        public static string getCar(IParticipant p, bool countBroken)
         {
             bool broken = p.Car.IsBroken;
 
             switch (p.TeamColor)
                 {
                 case IParticipant.TeamColors.Red:
-                    if (broken) return _redCarBroken;
+                    if (broken && countBroken) return _redCarBroken;
                     else return _redCar;
                 case IParticipant.TeamColors.Green:
-                    if (broken) return _greenCarBroken;
+                    if (broken && countBroken) return _greenCarBroken;
                     else return _greenCar;
                 case IParticipant.TeamColors.Blue:
-                    if (broken) return _blueCarBroken;
+                    if (broken && countBroken) return _blueCarBroken;
                     else return _blueCar;
                 case IParticipant.TeamColors.Grey:
-                    if (broken) return _greyCarBroken;
+                    if (broken && countBroken) return _greyCarBroken;
                     else return _greyCar;
                 case IParticipant.TeamColors.Yellow:
-                    if (broken) return _yellowCarBroken;
+                    if (broken && countBroken) return _yellowCarBroken;
                     else return _yellowCar;
                 }
 

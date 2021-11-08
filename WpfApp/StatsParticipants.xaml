@@ -9,7 +9,7 @@
     <Window.DataContext>
         <local:GameData/>
     </Window.DataContext>
-    <Grid x:Name="Points" Background="#FF00FF46">
+    <Grid Background="#FF00FF46">
         <Grid.DataContext>
             <local:GameData/>
         </Grid.DataContext>
@@ -23,7 +23,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListViewItem Grid.Row="1" Grid.Column="1" Name="DriversCars"/>
+            <ListView Grid.Row="1" Grid.Column="0" Name="DriversCarsView" Background="Transparent" BorderBrush="Transparent"/>
             <Label Grid.Row="0" Grid.Column="1" Content="Drivers" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ListView Grid.Row="1" Grid.Column="1" Name="DriversView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
             <Label Grid.Row="0" Grid.Column="2" Content="Points" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>

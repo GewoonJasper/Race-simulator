@@ -34,10 +34,6 @@ namespace WpfApp
 
             Track track1 = new Track("Oval", new SectionTypes[]
             {
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
                 SectionTypes.Finish,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner,
@@ -47,14 +43,14 @@ namespace WpfApp
                 SectionTypes.Straight,
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
-                SectionTypes.RightCorner
+                SectionTypes.RightCorner,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid
             });
             Track track2 = new Track("Epictrack", new SectionTypes[]
             {
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
                 SectionTypes.Finish,
                 SectionTypes.LeftCorner,
                 SectionTypes.RightCorner,
@@ -76,13 +72,14 @@ namespace WpfApp
                 SectionTypes.LeftCorner,
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
-                SectionTypes.RightCorner
+                SectionTypes.RightCorner,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid
             });
             Track track3 = new Track("Bridges", new SectionTypes[]
             {
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
                 SectionTypes.Finish,
                 SectionTypes.Straight,
                 SectionTypes.LeftCorner,
@@ -105,13 +102,13 @@ namespace WpfApp
                 SectionTypes.Straight,
                 SectionTypes.LeftCorner,
                 SectionTypes.RightCorner,
-                SectionTypes.RightCorner
+                SectionTypes.RightCorner,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid
             });
             Track track4 = new Track("Veldbaan", new SectionTypes[]
             {
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
-                SectionTypes.StartGrid,
                 SectionTypes.Finish,
                 SectionTypes.LeftCorner,
                 SectionTypes.RightCorner,
@@ -130,7 +127,10 @@ namespace WpfApp
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.Straight,
-                SectionTypes.RightCorner
+                SectionTypes.RightCorner,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid
             });
 
             Track[] tracks = { track1, track2, track3, track4 };
@@ -155,6 +155,7 @@ namespace WpfApp
             this.Dispatcher.Invoke(() =>
             {
                 _gameData.RefreshScreens(_participantsScreen, _raceScreen);
+                //_gameData.PauseButton = Data.CurrentRace?.GetPauseButton();
             });
         }
 
@@ -193,6 +194,9 @@ namespace WpfApp
             {
                 Data.CurrentRace.StopTimer();
             }
+
+            MenuItem item = (MenuItem)sender;
+            item.Header = Data.CurrentRace?.GetPauseButton();
         }
     }
 }

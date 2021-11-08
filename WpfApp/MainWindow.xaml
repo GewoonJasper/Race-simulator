@@ -16,7 +16,7 @@
                 <MenuItem Header="Menu" IsEnabled="True">
                     <MenuItem Header="Participants" Click="MenuItem_Participants_Click"/>
                     <MenuItem Header="Race" Click="MenuItem_Race_Click"/>
-                    <MenuItem Header="{Binding StartPauze}" Click="MenuItem_PauzeStart_Click"/>
+                    <MenuItem Header="{Binding PauseButton}" Click="MenuItem_PauzeStart_Click"/>
                     <MenuItem Header="Exit" Click="MenuItem_Exit_Click"/>
                 </MenuItem>
             </Menu>

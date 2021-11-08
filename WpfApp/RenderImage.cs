@@ -29,9 +29,6 @@ namespace WpfApp
         {
             Bitmap b = new Bitmap(x, y);
 
-            //Graphics g = Graphics.FromImage(b);
-            //g.Clear(Color.Gray);
-
             return b;
         }
 

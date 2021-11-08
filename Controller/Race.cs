@@ -34,7 +34,7 @@ namespace Controller
 
         private int _sectionLength;
         private int _raceLenght;
-        private int _maxLaps;
+        public int MaxLaps { get; private set; }
         private int _points { get; set; }
 
         // Constructor klasse Race
@@ -148,10 +148,10 @@ namespace Controller
             }
             _sectionLength = 80;
             _raceLenght = 5000;
-            _maxLaps = 2;//_raceLenght / (track.Sections.Count * _sectionLength);
-            if (_maxLaps < 2)
+            MaxLaps = _raceLenght / (track.Sections.Count * _sectionLength);
+            if (MaxLaps < 2)
             {
-                _maxLaps = 2;
+                MaxLaps = 2;
             }
 
             _points = Participants.Count * 2;
@@ -171,7 +171,7 @@ namespace Controller
             IsGepauzeerd = true;
         }
 
-        public string StartPauzeer()
+        public string GetPauseButton()
         {
             if (IsGepauzeerd)
             {
@@ -179,6 +179,39 @@ namespace Controller
             }
 
             return "Pauzeer race";
+        }
+
+        public List<IParticipant> GetLeaderboard()
+        {
+            List<IParticipant> leaderboard = new List<IParticipant>();
+
+
+            for (int maxLaps = MaxLaps; maxLaps >= 0; maxLaps--)
+            {
+                for (int j = Track.Sections.Count - 1; j >= 0; j--)
+                {
+                    Section currentSection = Track.Sections.ElementAt(j);
+                    SectionData currentSectionData = GetSectionData(currentSection, _positions);
+
+                    if (currentSectionData.Left != null)
+                    {
+                        if (currentSectionData.Left.Laps == maxLaps)
+                        {
+                            leaderboard.Add(currentSectionData.Left);
+                        }
+                    }
+
+                    if (currentSectionData.Right != null)
+                    {
+                        if (currentSectionData.Right.Laps == maxLaps)
+                        {
+                            leaderboard.Add(currentSectionData.Right);
+                        }
+                    }
+                }
+            }
+
+            return leaderboard;
         }
 
         // Wanneer de timer bij een bepaald limiet aangekomen is, wordt deze methode aangeroepen
@@ -201,7 +234,7 @@ namespace Controller
 
                 if (currentSectionData.Left != null)
                 {
-                    if (currentSectionData.Left.Laps <= _maxLaps)
+                    if (currentSectionData.Left.Laps <= MaxLaps)
                     {
                         checkIfCarBroken(currentSectionData.Left);
                         if (!currentSectionData.Left.Car.IsBroken)
@@ -255,7 +288,7 @@ namespace Controller
 
                 if (currentSectionData.Right != null)
                 {
-                    if (currentSectionData.Right.Laps <= _maxLaps)
+                    if (currentSectionData.Right.Laps <= MaxLaps)
                     {
                         checkIfCarBroken(currentSectionData.Right);
                         if (!currentSectionData.Right.Car.IsBroken)
