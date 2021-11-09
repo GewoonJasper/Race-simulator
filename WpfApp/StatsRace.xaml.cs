@@ -12,7 +12,7 @@ namespace WpfApp {
     public partial class StatsRace : Window
     {
         private GameData _gameData;
-        private List<IParticipant> _leaderboard;
+        private List<IParticipant> _raceLeaderboard;
 
         public StatsRace()
         {
@@ -25,28 +25,32 @@ namespace WpfApp {
 
         public void RefreshComponents()
         {
-            _leaderboard = _gameData.Leaderboard;
+            _raceLeaderboard = _gameData.RaceLeaderboard;
 
-            DriversView.Items.Clear();
-            DriversLapsView.Items.Clear();
-            DriversCarsView.Items.Clear();
-            Lead.Items.Clear();
+            RaceLeaderboardDrivers.Items.Clear();
+            RaceLeaderboardDriversLaps.Items.Clear();
+            RaceLeaderboardCars.Items.Clear();
+            RaceLeaderboardNumbers.Items.Clear();
+            RaceLeaderboardDriversPace.Items.Clear();
+            RaceLeaderboardDriversQuality.Items.Clear();
 
             TrackName.Content = _gameData.TrackName;
             MaxLaps.Content = _gameData.MaxLaps;
 
             int x = 1;
 
-            foreach (IParticipant participant in _leaderboard)
+            foreach (IParticipant participant in _raceLeaderboard)
             {
-                Lead.Items.Add(x);
+                RaceLeaderboardNumbers.Items.Add(x);
                 x++;
 
-                DriversView.Items.Add(participant.Name);
-                DriversLapsView.Items.Add(participant.Laps);
+                RaceLeaderboardDrivers.Items.Add(participant.Name);
+                RaceLeaderboardDriversLaps.Items.Add(participant.Laps);
+                RaceLeaderboardDriversPace.Items.Add(participant.Car.Speed * participant.Car.Performance);
+                RaceLeaderboardDriversQuality.Items.Add(participant.Car.Quality);
 
                 ImageSource imgSource = ConvertStringToImagesource(WPFVisualisation.getCar(participant, true));
-                DriversCarsView.Items.Add(new Image() { Source = imgSource, Height = 30, Width = 50 });
+                RaceLeaderboardCars.Items.Add(new Image() { Source = imgSource, Height = 30, Width = 50 });
             }
         }
 

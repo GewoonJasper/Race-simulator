@@ -19,23 +19,32 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" Content="Track name:" FontSize="48" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <Label Grid.Row="0" Grid.Column="2" Name="TrackName"  Content="{Binding TrackName}" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Track name:" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Name="TrackName"  Content="{Binding TrackName}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <Label Grid.Row="1" Grid.Column="1" Content="Total laps:" FontSize="48" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <Label Grid.Row="1" Grid.Column="2" Name="MaxLaps" Content="{Binding MaxLaps}" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Total laps:" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Name="MaxLaps" Content="{Binding MaxLaps}" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <ListView Grid.Row="3" Grid.Column="0" Name="Lead" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+            <ListView Grid.Row="3" Grid.Column="0" Name="RaceLeaderboardNumbers" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
 
-            <ListView Grid.Row="3" Grid.Column="0" Name="DriversCarsView" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right"/>
+            <ListView Grid.Row="3" Grid.Column="0" Name="RaceLeaderboardCars" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right"/>
+
             <Label Grid.Row="2" Grid.Column="1" Content="Driver" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ListView Grid.Row="3" Grid.Column="1" Name="DriversView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"/>
+            <ListView Grid.Row="3" Grid.Column="1" Name="RaceLeaderboardDrivers" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"/>
 
             <Label Grid.Row="2" Grid.Column="2" Content="Lap" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <ListView Grid.Row="3" Grid.Column="2" Name="DriversLapsView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+            <ListView Grid.Row="3" Grid.Column="2" Name="RaceLeaderboardDriversLaps" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+
+            <Label Grid.Row="2" Grid.Column="3" Content="Pace" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView Grid.Row="3" Grid.Column="3" Name="RaceLeaderboardDriversPace" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+
+            <Label Grid.Row="2" Grid.Column="4" Content="Quality" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView Grid.Row="3" Grid.Column="4" Name="RaceLeaderboardDriversQuality" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

@@ -48,7 +48,7 @@ namespace WpfApp
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid
-            });
+            }, 1);
             Track track2 = new Track("Epictrack", new SectionTypes[]
             {
                 SectionTypes.Finish,
@@ -77,7 +77,7 @@ namespace WpfApp
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid
-            });
+            }, 3);
             Track track3 = new Track("Bridges", new SectionTypes[]
             {
                 SectionTypes.Finish,
@@ -106,7 +106,7 @@ namespace WpfApp
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid
-            });
+            }, 1);
             Track track4 = new Track("Veldbaan", new SectionTypes[]
             {
                 SectionTypes.Finish,
@@ -131,9 +131,30 @@ namespace WpfApp
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid
-            });
+            }, 1);
+            Track track5 = new Track("VerticalStart", new SectionTypes[]
+            {
+                SectionTypes.Finish,
+                SectionTypes.LeftCorner,
+                SectionTypes.LeftCorner,
+                SectionTypes.Straight,
+                SectionTypes.Straight,
+                SectionTypes.LeftCorner,
+                SectionTypes.Straight,
+                SectionTypes.LeftCorner,
+                SectionTypes.RightCorner,
+                SectionTypes.RightCorner,
+                SectionTypes.Straight,
+                SectionTypes.RightCorner,
+                SectionTypes.LeftCorner,
+                SectionTypes.RightCorner,
+                SectionTypes.RightCorner,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid,
+                SectionTypes.StartGrid
+            }, 2);
 
-            Track[] tracks = { track1, track2, track3, track4 };
+            Track[] tracks = { track1, track2, track3, track4, track5 };
 
             Data.RaceChanged += OnRaceChanged;
 
@@ -155,7 +176,6 @@ namespace WpfApp
             this.Dispatcher.Invoke(() =>
             {
                 _gameData.RefreshScreens(_participantsScreen, _raceScreen);
-                //_gameData.PauseButton = Data.CurrentRace?.GetPauseButton();
             });
         }
 

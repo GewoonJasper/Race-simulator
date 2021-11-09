@@ -7,27 +7,62 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Art\blueCar.png" />
+    <None Remove="Art\blueCarBroken.png" />
     <None Remove="Art\cornerDownLeft.png" />
     <None Remove="Art\cornerDownRight.png" />
     <None Remove="Art\cornerLeftDown.png" />
     <None Remove="Art\cornerRightDown.png" />
     <None Remove="Art\finish.png" />
+    <None Remove="Art\finishEast.png" />
+    <None Remove="Art\finishNorth.png" />
+    <None Remove="Art\finishSouth.png" />
+    <None Remove="Art\finishWest.png" />
+    <None Remove="Art\Fire.png" />
+    <None Remove="Art\greenCar.png" />
+    <None Remove="Art\greenCarBroken.png" />
+    <None Remove="Art\greyCar.png" />
+    <None Remove="Art\greyCarBroken.png" />
     <None Remove="Art\redCar.png" />
+    <None Remove="Art\redCarBroken.png" />
     <None Remove="Art\startGrid.png" />
+    <None Remove="Art\startGridEast.png" />
+    <None Remove="Art\startGridNorth.png" />
+    <None Remove="Art\startGridSouth.png" />
+    <None Remove="Art\startGridWest.png" />
     <None Remove="Art\straightHorizontal.png" />
     <None Remove="Art\straightVertical.png" />
+    <None Remove="Art\vuur.jpg" />
+    <None Remove="Art\yellowCar.png" />
+    <None Remove="Art\yellowCarBroken.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Art\blueCar.png" />
+    <Content Include="Art\blueCarBroken.png" />
     <Content Include="Art\cornerDownLeft.png" />
     <Content Include="Art\cornerDownRight.png" />
     <Content Include="Art\cornerLeftDown.png" />
     <Content Include="Art\cornerRightDown.png" />
-    <Content Include="Art\finish.png" />
+    <Content Include="Art\finishEast.png" />
+    <Content Include="Art\finishNorth.png" />
+    <Content Include="Art\finishSouth.png" />
+    <Content Include="Art\finishWest.png" />
+    <Content Include="Art\Fire.png" />
+    <Content Include="Art\greenCar.png" />
+    <Content Include="Art\greenCarBroken.png" />
+    <Content Include="Art\greyCar.png" />
+    <Content Include="Art\greyCarBroken.png" />
     <Content Include="Art\redCar.png" />
-    <Content Include="Art\startGrid.png" />
+    <Content Include="Art\redCarBroken.png" />
+    <Content Include="Art\startGridEast.png" />
+    <Content Include="Art\startGridNorth.png" />
+    <Content Include="Art\startGridSouth.png" />
+    <Content Include="Art\startGridWest.png" />
     <Content Include="Art\straightHorizontal.png" />
     <Content Include="Art\straightVertical.png" />
+    <Content Include="Art\vuur.jpg" />
+    <Content Include="Art\yellowCar.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +72,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Console project\Console project.csproj" />
     <ProjectReference Include="..\Controller\Controller.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Art\yellowCarBroken.png" />
   </ItemGroup>
 
   <ItemGroup>

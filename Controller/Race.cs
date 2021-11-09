@@ -85,6 +85,7 @@ namespace Controller
                 driver.Car.Performance = _random.Next(3, 5);
                 driver.Car.Speed = _random.Next(10, 15);
                 driver.Car.Quality = (int)(100 - Math.Pow(2, driver.Car.Speed) / 1000); // Hoe hoger de snelheid, hoe slechter de kwaliteit
+                //driver.Car.Quality = driver.Car.Speed * driver.Car.Performance * -1 + 100; // Hoe hoger de snelheid, hoe slechter de kwaliteit (minimale is 25, maximale is 70) TODO dit werkt nog niet ofzo
             }
         }
 
@@ -181,7 +182,7 @@ namespace Controller
             return "Pauzeer race";
         }
 
-        public List<IParticipant> GetLeaderboard()
+        public List<IParticipant> GetRaceLeaderboard()
         {
             List<IParticipant> leaderboard = new List<IParticipant>();
 
@@ -362,15 +363,6 @@ namespace Controller
                 p.Car.IsBroken = false;
                 p.Car.Quality--;
             }
-
-            //int i = 0;
-            //foreach (IParticipant d in Participants)
-            //{
-            //    Console.SetCursorPosition(0, i);
-            //    Console.WriteLine($"{d.Name}: Speed: {d.car.Speed * d.car.Performance}, Quality: {d.car.Quality}, lap {d.laps}");
-
-            //    i++;
-            //}
         }
 
         public void RaceOver()

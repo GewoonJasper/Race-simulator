@@ -17,8 +17,8 @@ namespace WpfApp
         public string PauseButton => Data.CurrentRace?.GetPauseButton();
         public string TrackName => Data.CurrentRace?.Track.Name;
         public string MaxLaps => Data.CurrentRace?.MaxLaps.ToString();
-        public List<IParticipant> Drivers => Data.Competition?.Participants;
-        public List<IParticipant> Leaderboard => Data.CurrentRace?.GetLeaderboard();
+        public List<IParticipant> RaceLeaderboard => Data.CurrentRace?.GetRaceLeaderboard();
+        public List<IParticipant> CompetitionLeaderboard => Data.GetCompetitionLeaderboard(Data.Competition);
 
         public GameData(){}
 

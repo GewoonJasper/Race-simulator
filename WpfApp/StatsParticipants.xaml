@@ -15,19 +15,27 @@
         </Grid.DataContext>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView Grid.Row="1" Grid.Column="0" Name="DriversCarsView" Background="Transparent" BorderBrush="Transparent"/>
-            <Label Grid.Row="0" Grid.Column="1" Content="Drivers" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <ListView Grid.Row="1" Grid.Column="1" Name="DriversView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
-            <Label Grid.Row="0" Grid.Column="2" Content="Points" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <ListView Grid.Row="1" Grid.Column="2" Name="DriversPointsView" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+
+            <Label Grid.Row="0" Grid.ColumnSpan="3" Content="Competition Overview" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <ListView Grid.Row="2" Grid.Column="0" Name="CompetitionLeaderboardNumbers" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center"/>
+
+            <ListView Grid.Row="2" Grid.Column="0" Name="CompetitionLeaderboardCars" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right"/>
+
+            <Label Grid.Row="1" Grid.Column="1" Content="Drivers" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="Transparent"/>
+            <ListView Grid.Row="2" Grid.Column="1" Name="CompetitionLeaderboardDrivers" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Content="Points" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ListView Grid.Row="2" Grid.Column="2" Name="CompetitionLeaderboardPoints" FontSize="22" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left"/>
         </Grid>
     </Grid>
 </Window>

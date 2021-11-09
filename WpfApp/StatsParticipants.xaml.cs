@@ -4,18 +4,20 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Model;
+using Color = System.Drawing.Color;
 using Image = System.Windows.Controls.Image;
 
 namespace WpfApp {
     public partial class StatsParticipants : Window
     {
         private GameData _gameData;
-        private List<IParticipant> _drivers;
+        private List<IParticipant> _competitionLeaderboard;
 
         public StatsParticipants()
         {
@@ -28,22 +30,27 @@ namespace WpfApp {
 
         public void RefreshComponents()
         {
-            _drivers = _gameData.Drivers;
+            _competitionLeaderboard = _gameData.CompetitionLeaderboard;
 
-            DriversView.Items.Clear();
-            DriversPointsView.Items.Clear();
-            DriversCarsView.Items.Clear();
+            CompetitionLeaderboardDrivers.Items.Clear();
+            CompetitionLeaderboardPoints.Items.Clear();
+            CompetitionLeaderboardCars.Items.Clear();
+            CompetitionLeaderboardNumbers.Items.Clear();
 
-            foreach (IParticipant participant in _drivers)
+            int x = 1;
+
+            foreach (IParticipant participant in _competitionLeaderboard)
             {
-                DriversView.Items.Add(participant.Name);
-                DriversPointsView.Items.Add(participant.Points);
+                CompetitionLeaderboardNumbers.Items.Add(x);
+                x++;
+
+                CompetitionLeaderboardDrivers.Items.Add(participant.Name);
+
+                CompetitionLeaderboardPoints.Items.Add(participant.Points);
 
                 ImageSource imgSource = ConvertStringToImagesource(WPFVisualisation.getCar(participant, false));
-                DriversCarsView.Items.Add(new Image() { Source = imgSource, Height = 30, Width = 50 });
+                CompetitionLeaderboardCars.Items.Add(new Image() { Source = imgSource, Height = 30, Width = 50 });
             }
-
-
         }
 
         // van internet

@@ -8,7 +8,7 @@ namespace Console_project
     {
         public static int cursorH; // 0,0 is linksboven
         public static int cursorV; // 0,0 is linksboven
-        public static int orientation = 1; // 0 = N, 1 = E, 2 = S, 3 = W
+        public static int orientation; // 0 = N, 1 = E, 2 = S, 3 = W
 
         // Alle mogelijkheden getekend in stringarrays
         #region graphics
@@ -49,19 +49,19 @@ namespace Console_project
             "--------"
         };
 
-        /*
+        
         private static string[] _finishVertical = new string[]
         {
             "|      |",
             "|      |",
+            "|    2 |",
             "|      |",
-            "|      |",
-            "|      |",
+            "| 1    |",
             "|######|",
             "|      |",
             "|      |"
         };
-        */
+        
 
         private static string[] _straightVertical = new string[]
         {
@@ -75,7 +75,7 @@ namespace Console_project
             "|      |"
         };
 
-        /*
+        
         private static string[] _startVertical = new string[]
         {
             "|      |",
@@ -87,7 +87,7 @@ namespace Console_project
             "| 1    |",
             "| -    |"
         };
-        */
+        
 
         private static string[] _cornerRightDown = new string[]
         {
@@ -142,6 +142,8 @@ namespace Console_project
         // Tekent de baan
         public static void DrawTrack(Track track)
         {
+            orientation = track.StartOrientation;
+
             CheckTrackPosition(track);
 
             Console.CursorVisible = false; // Zorgt ervoor dat je de cursor niet de hele tijd heen en weer ziet springen
@@ -251,8 +253,25 @@ namespace Console_project
                     for (int i = 0; i < 8; i++)
                     {
                         Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        SectionLine = ChangeString(_finishHorizontal[i], driversInSection[0], driversInSection[1]);
-                        Console.WriteLine(SectionLine);
+                        switch (orientation)
+                        {
+                            case 0:
+                                SectionLine = ChangeString(_finishVertical[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 1:
+                                SectionLine = ChangeString(_finishHorizontal[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 2:
+                                SectionLine = ChangeString(_finishVertical[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 3:
+                                SectionLine = ChangeString(_finishHorizontal[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                        }
                     }
                 }
                 else if (section.SectionType.Equals(Section.SectionTypes.StartGrid))
@@ -260,8 +279,25 @@ namespace Console_project
                     for (int i = 0; i < 8; i++)
                     {
                         Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        SectionLine = ChangeString(_startHorizontal[i], driversInSection[0], driversInSection[1]);
-                        Console.WriteLine(SectionLine);
+                        switch (orientation)
+                        {
+                            case 0:
+                                SectionLine = ChangeString(_startVertical[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 1:
+                                SectionLine = ChangeString(_startHorizontal[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 2:
+                                SectionLine = ChangeString(_startVertical[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                            case 3:
+                                SectionLine = ChangeString(_startHorizontal[i], driversInSection[0], driversInSection[1]);
+                                Console.WriteLine(SectionLine);
+                                break;
+                        }
                     }
                 }
 

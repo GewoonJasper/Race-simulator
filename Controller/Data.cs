@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Model;
 
 namespace Controller
@@ -56,6 +58,15 @@ namespace Controller
             {
                 CurrentRace = null;
             }
+        }
+
+        public static List<IParticipant> GetCompetitionLeaderboard(Competition competition)
+        {
+            var compLeaderboard = from particpant in competition.Participants
+                                                            orderby particpant.Points descending
+                                                            select particpant;
+
+            return compLeaderboard.ToList();
         }
     }
 }
