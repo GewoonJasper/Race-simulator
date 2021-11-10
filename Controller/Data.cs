@@ -9,9 +9,9 @@ namespace Controller
     {
         public static Competition Competition { get; private set; }
         public static Race CurrentRace { get; private set; }
-        public static EventHandler RaceChanged { get; set; }
+        public static event EventHandler RaceChanged;
 
-        // Initialiseert de klasse Data, door drivers en tracks aan te maken en aan de competitie toe te voegen
+        // Initialiseert de klasse Data, door drivers en tracks aan te maken en aan de meegegeven competitie toe te voegen
         public static void Initialize (Competition competition, Driver[] drivers, Track[] tracks)
         {
             Competition = competition;
@@ -60,11 +60,13 @@ namespace Controller
             }
         }
 
+        // Geeft een lijst van deelnemers terug op volgorde van meeste punten naar minste punten
         public static List<IParticipant> GetCompetitionLeaderboard(Competition competition)
         {
-            var compLeaderboard = from particpant in competition.Participants
-                                                            orderby particpant.Points descending
-                                                            select particpant;
+            var compLeaderboard = 
+                from particpant in competition.Participants
+                orderby particpant.Points descending
+                select particpant;
 
             return compLeaderboard.ToList();
         }

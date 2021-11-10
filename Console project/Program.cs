@@ -8,15 +8,36 @@ namespace Console_project
     {
         static void Main(string[] args)
         {
-            Driver driver1 = new Driver("Verstappen", 0, IParticipant.TeamColors.Blue);
-            Driver driver2 = new Driver("Hamilton", 0, IParticipant.TeamColors.Grey);
-            Driver driver3 = new Driver("Norris", 0, IParticipant.TeamColors.Yellow);
-            Driver driver4 = new Driver("Sainz", 0, IParticipant.TeamColors.Red);
-            Driver driver5 = new Driver("Perez", 0, IParticipant.TeamColors.Blue);
+            Data.RaceChanged += Visualisation.OnRaceChanged;
+
+            Data.Initialize(new Competition(), GetDrivers(), GetTracks());
+
+            Data.NextRace(Data.Competition);
+
+            for ( ; ; )
+            {
+
+            }
+        }
+
+        // In deze methode staan alle drivers die je wilt gaan gebruiken in de competitie
+        public static Driver[] GetDrivers()
+        {
+            Driver driver1 = new("Verstappen", 0, IParticipant.TeamColors.Blue);
+            Driver driver2 = new("Hamilton", 0, IParticipant.TeamColors.Grey);
+            Driver driver3 = new("Norris", 0, IParticipant.TeamColors.Yellow);
+            Driver driver4 = new("Sainz", 0, IParticipant.TeamColors.Red);
+            Driver driver5 = new("Perez", 0, IParticipant.TeamColors.Blue);
 
             Driver[] drivers = { driver1, driver2, driver3, driver4, driver5 };
 
-            Track track1 = new Track("Oval", new SectionTypes[]
+            return drivers;
+        }
+
+        // In deze methode staan alle tracks die je wilt gaan gebruiken in de competitie
+        public static Track[] GetTracks()
+        {
+            Track track1 = new("Oval", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
@@ -33,7 +54,7 @@ namespace Console_project
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
             }, 1);
-            Track track2 = new Track("Epictrack", new SectionTypes[]
+            Track track2 = new("Epictrack", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
@@ -62,7 +83,7 @@ namespace Console_project
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
             }, 1);
-            Track track3 = new Track("Bridges", new SectionTypes[]
+            Track track3 = new("Bridges", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
@@ -91,7 +112,7 @@ namespace Console_project
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
             }, 1);
-            Track track4 = new Track("Veldbaan", new SectionTypes[]
+            Track track4 = new("Veldbaan", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
@@ -116,7 +137,7 @@ namespace Console_project
                 SectionTypes.Straight,
                 SectionTypes.RightCorner
             }, 1);
-            Track track5 = new Track("VerticalStart", new SectionTypes[]
+            Track track5 = new("VerticalStart", new SectionTypes[]
             {
                 SectionTypes.Finish,
                 SectionTypes.LeftCorner,
@@ -137,20 +158,10 @@ namespace Console_project
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
             }, 2);
+                
+            Track[] tracks = { track1, track2, track3, track4, track5 };
 
-            //Track[] tracks = { track4, track1, track2, track3 };
-            Track[] tracks = { track5 };
-
-            Data.RaceChanged += Visualisation.OnRaceChanged;
-
-            Data.Initialize(new Competition(), drivers, tracks);
-
-            Data.NextRace(Data.Competition);
-
-            for ( ; ; )
-            {
-
-            }
+            return tracks;
         }
     }
 }

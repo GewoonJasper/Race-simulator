@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Console_project;
+﻿using Console_project;
 using Model;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace ControllerTest
 {

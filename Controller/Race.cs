@@ -10,13 +10,13 @@ namespace Controller
     public class Race
     {
         public event EventHandler<DriversChangedEventArgs> DriversChanged;
-        private DriversChangedEventArgs dcArgs;
+        private readonly DriversChangedEventArgs dcArgs;
 
         public Track Track { get; set; }
         public List<IParticipant> Participants { get; set; }
         public DateTime StartTime { get; set; }
-        private Timer _timer;
-        private Random _random;
+        private readonly Timer _timer;
+        private readonly Random _random;
         public bool IsGepauzeerd { get; private set; }
         
         private Dictionary<Section, SectionData> _positions;
@@ -61,13 +61,13 @@ namespace Controller
 
         // Returnt sectiondata van de gevraagde sectie
         // Als deze niet bestaat, maakt het een nieuwe key aan in de _positions dictionary met de sectiondata
-        public SectionData GetSectionData(Section section, Dictionary<Section, SectionData> position)
+        public static SectionData GetSectionData(Section section, Dictionary<Section, SectionData> position)
         {
             if (section != null)
             {
                 if (!position.ContainsKey(section))
                 {
-                    SectionData data = new SectionData();
+                    SectionData data = new();
                     position.Add(section, data);
                 }
 
@@ -93,11 +93,11 @@ namespace Controller
         //public void SetStartPositions(Track track, List<IParticipant> participants)
         public Dictionary<Section, SectionData> GetStartPositions(Track track, List<IParticipant> participants)
         {
-            int Drivers = participants.Count(); //Het totale aantal drivers
+            int Drivers = participants.Count; //Het totale aantal drivers
             int Driver = 0; // De index van de variabele drivers, deze zet hij op de plek neer
-            List<IParticipant> p = new List<IParticipant>(); // Het aantal spelers op de baan
+            List<IParticipant> p = new(); // Het aantal spelers op de baan
 
-            Dictionary<Section, SectionData> tempDictionary = new Dictionary<Section, SectionData>();
+            Dictionary<Section, SectionData> tempDictionary = new();
 
             // Hij gaat de baan achterstevoren langs omdat de drivers dan vooraan komen te staan
             for (int j = track.Sections.Count - 1; j >= 0; j--)
@@ -169,6 +169,7 @@ namespace Controller
             IsGepauzeerd = true;
         }
 
+        // Retouneerd de text die op de pauzeer knop op het wpf project moet komen te staan
         public string GetPauseButton()
         {
             if (IsGepauzeerd)
@@ -179,9 +180,10 @@ namespace Controller
             return "Pauzeer race";
         }
 
+        // retouneert de volgorde van de deelnemers aan de race van eerste plaats naar laatste plaats
         public List<IParticipant> GetRaceLeaderboard()
         {
-            List<IParticipant> leaderboard = new List<IParticipant>();
+            List<IParticipant> leaderboard = new();
 
 
             for (int maxLaps = MaxLaps; maxLaps >= 0; maxLaps--)
@@ -234,7 +236,7 @@ namespace Controller
                 {
                     if (currentSectionData.Left.Laps <= MaxLaps)
                     {
-                        checkIfCarBroken(currentSectionData.Left);
+                        CheckIfCarBroken(currentSectionData.Left);
                         if (!currentSectionData.Left.Car.IsBroken)
                         {
                             
@@ -288,7 +290,7 @@ namespace Controller
                 {
                     if (currentSectionData.Right.Laps <= MaxLaps)
                     {
-                        checkIfCarBroken(currentSectionData.Right);
+                        CheckIfCarBroken(currentSectionData.Right);
                         if (!currentSectionData.Right.Car.IsBroken)
                         {
 
@@ -348,7 +350,8 @@ namespace Controller
             }
         }
 
-        public void checkIfCarBroken(IParticipant p)
+        // Kijkt of de auto kapot is: hoe hoger de kwaliteit hoe minder snel de auto kapot gaat
+        public void CheckIfCarBroken(IParticipant p)
         {
             if (!p.Car.IsBroken && _random.Next(1, 100) >= p.Car.Quality)
             {
@@ -362,6 +365,8 @@ namespace Controller
             }
         }
 
+        // Methode die wordt aangeroepen wanneer alle drivers gefinisht zijn
+        // Zorgt ervoor dat de volgende Race gestart wordt
         public void RaceOver()
         {
             StopTimer();

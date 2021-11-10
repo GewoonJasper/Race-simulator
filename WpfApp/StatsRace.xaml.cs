@@ -11,7 +11,7 @@ using Image = System.Windows.Controls.Image;
 namespace WpfApp {
     public partial class StatsRace : Window
     {
-        private GameData _gameData;
+        private readonly GameData _gameData;
         private List<IParticipant> _raceLeaderboard;
 
         public StatsRace()
@@ -49,7 +49,7 @@ namespace WpfApp {
                 RaceLeaderboardDriversPace.Items.Add(participant.Car.Speed * participant.Car.Performance);
                 RaceLeaderboardDriversQuality.Items.Add(participant.Car.Quality);
 
-                ImageSource imgSource = ConvertStringToImagesource(WPFVisualisation.getCar(participant, true));
+                ImageSource imgSource = ConvertStringToImagesource(WPFVisualisation.GetCar(participant, true));
                 RaceLeaderboardCars.Items.Add(new Image() { Source = imgSource, Height = 30, Width = 50 });
             }
         }
@@ -58,7 +58,7 @@ namespace WpfApp {
         private ImageSource ConvertStringToImagesource(string img)
         {
             var image = new Bitmap(img);
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
                 image.Save(ms, ImageFormat.Bmp);
                 ms.Seek(0, SeekOrigin.Begin);

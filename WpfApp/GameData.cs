@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Documents;
-using System.Windows.Markup;
 using Controller;
 using Model;
-using System.Linq;
 
 namespace WpfApp
 {

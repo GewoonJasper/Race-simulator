@@ -13,7 +13,7 @@ namespace Console_project
         // Alle mogelijkheden getekend in stringarrays
         #region graphics
 
-        private static string[] _finishHorizontal = new string[] 
+        private static readonly string[] _finishHorizontal = new string[] 
         { 
             "--------",
             "     #  ",
@@ -25,7 +25,7 @@ namespace Console_project
             "--------"
         };
 
-        private static string[] _straightHorizontal = new string[]
+        private static readonly string[] _straightHorizontal = new string[]
         {
             "--------",
             "        ",
@@ -37,7 +37,7 @@ namespace Console_project
             "--------"
         };
 
-        private static string[] _startHorizontal = new string[]
+        private static readonly string[] _startHorizontal = new string[]
         {
             "--------",
             "        ",
@@ -50,7 +50,7 @@ namespace Console_project
         };
 
         
-        private static string[] _finishVertical = new string[]
+        private static readonly string[] _finishVertical = new string[]
         {
             "|      |",
             "|      |",
@@ -63,7 +63,7 @@ namespace Console_project
         };
         
 
-        private static string[] _straightVertical = new string[]
+        private static readonly string[] _straightVertical = new string[]
         {
             "|      |",
             "|      |",
@@ -76,7 +76,7 @@ namespace Console_project
         };
 
         
-        private static string[] _startVertical = new string[]
+        private static readonly string[] _startVertical = new string[]
         {
             "|      |",
             "|      |",
@@ -89,7 +89,7 @@ namespace Console_project
         };
         
 
-        private static string[] _cornerRightDown = new string[]
+        private static readonly string[] _cornerRightDown = new string[]
         {
             @"----\   ",
             @"     \  ",
@@ -101,7 +101,7 @@ namespace Console_project
             @"\      |"
         };
 
-        private static string[] _cornerDownLeft = new string[]
+        private static readonly string[] _cornerDownLeft = new string[]
         {
             "/      |",
             "       |",
@@ -113,7 +113,7 @@ namespace Console_project
             "----/   "
         };
 
-        private static string[] _cornerDownRight = new string[]
+        private static readonly string[] _cornerDownRight = new string[]
         {
             @"|      \",
             @"|       ",
@@ -125,7 +125,7 @@ namespace Console_project
             @"   \----"
         };
 
-        private static string[] _cornerLeftDown = new string[]
+        private static readonly string[] _cornerLeftDown = new string[]
         {
             "   /----",
             "  /     ",
@@ -396,7 +396,7 @@ namespace Console_project
         // Checkt voor de drivers in een sectie, kan max 2 drivers returnen
         public static IParticipant[] CheckForDrivers(Section section)
         {
-            SectionData data = Data.CurrentRace.GetSectionData(section, Data.CurrentRace.Positions);
+            SectionData data = Race.GetSectionData(section, Data.CurrentRace.Positions);
             IParticipant[] participants = new IParticipant[2];
 
             if (data.Left != null)
@@ -445,13 +445,14 @@ namespace Console_project
             return tekst;
         }
 
-        // Dit is de eventhandler die aangeroepen wordt wanneer de driverschanged event in actie komt
+        // Dit is de eventhandler die aangeroepen wordt wanneer de driverschanged event in actie komt, dus elke keer wanneer de timer af gaat
         // Het tekent de baan
         public static void OnDriversChanged(Object o, DriversChangedEventArgs e)
         {
             DrawTrack(e.Track);
         }
 
+        // Dit is de eventhandler die aangeroepen wordt wanneer de racechanged event in actie komt, dus wanneer er in data een nieuwe race aangemaakt wordt
         public static void OnRaceChanged(Object o, EventArgs e)
         {
             ClearTrack();
@@ -459,6 +460,7 @@ namespace Console_project
             r.DriversChanged += OnDriversChanged;
         }
 
+        // Maakt de console leeg
         private static void ClearTrack()
         {
             Console.Clear();

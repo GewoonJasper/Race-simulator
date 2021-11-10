@@ -33,7 +33,7 @@ namespace ControllerTest
             baan[4] = SectionTypes.Straight;
             baan[5] = SectionTypes.RightCorner;
             baan[6] = SectionTypes.RightCorner;
-            Track t = new Track("RightOval", baan, 1);
+            Track t = new("RightOval", baan, 1);
 
             _competition.Tracks.Enqueue(t);
 
@@ -52,12 +52,12 @@ namespace ControllerTest
             baan[4] = SectionTypes.Straight;
             baan[5] = SectionTypes.RightCorner;
             baan[6] = SectionTypes.RightCorner;
-            Track t = new Track("RightOval", baan, 1);
+            Track t = new("RightOval", baan, 1);
 
             _competition.Tracks.Enqueue(t);
 
+            _competition.NextTrack();
             Track result = _competition.NextTrack();
-            result = _competition.NextTrack();
             Assert.IsNull(result);
         }
 
@@ -72,7 +72,7 @@ namespace ControllerTest
             baan[4] = SectionTypes.Straight;
             baan[5] = SectionTypes.RightCorner;
             baan[6] = SectionTypes.RightCorner;
-            Track t = new Track("RightOval", baan, 1);
+            Track t = new("RightOval", baan, 1);
 
             SectionTypes[] baan2 = new SectionTypes[7];
             baan2[0] = SectionTypes.StartGrid;
@@ -82,7 +82,7 @@ namespace ControllerTest
             baan2[4] = SectionTypes.Straight;
             baan2[5] = SectionTypes.LeftCorner;
             baan2[6] = SectionTypes.LeftCorner;
-            Track t2 = new Track("LeftOval", baan2, 1);
+            Track t2 = new("LeftOval", baan2, 1);
 
             _competition.Tracks.Enqueue(t);
             _competition.Tracks.Enqueue(t2);

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using Controller;
+﻿using Controller;
 using Model;
 using System.Drawing;
-using System.Net.Sockets;
-using System.Threading;
 using System.Windows.Media.Imaging;
 using System.Linq;
 
@@ -11,9 +8,9 @@ namespace WpfApp
 {
     public static class WPFVisualisation
     {
-        public static int cursorH; // 0,0 is linksboven
-        public static int cursorV; // 0,0 is linksboven
-        public static int orientation; // 0 = N, 1 = E, 2 = S, 3 = W
+        public static int CursorH { get; private set; } // 0,0 is linksboven
+        public static int CursorV { get; private set; } // 0,0 is linksboven
+        public static int Orientation { get; private set; } // 0 = N, 1 = E, 2 = S, 3 = W
 
         #region Images
 
@@ -57,7 +54,7 @@ namespace WpfApp
             Bitmap b = RenderImage.SearchImageCache("empty");
             Graphics g = Graphics.FromImage(b);
 
-            orientation = track.StartOrientation;
+            Orientation = track.StartOrientation;
 
             if (Data.CurrentRace != null)
             {
@@ -69,105 +66,105 @@ namespace WpfApp
                     // Elke type moet 8 regels printen van boven naar beneden
                     if (section.SectionType.Equals(Section.SectionTypes.RightCorner))
                     {
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
-                                g.DrawImage(Image.FromFile(_cornerLeftDown), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerLeftDown), CursorH, CursorV, 40, 40);
                                 break;
                             case 1:
-                                g.DrawImage(Image.FromFile(_cornerRightDown), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerRightDown), CursorH, CursorV, 40, 40);
                                 break;
                             case 2:
-                                g.DrawImage(Image.FromFile(_cornerDownLeft), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerDownLeft), CursorH, CursorV, 40, 40);
                                 break;
                             case 3:
-                                g.DrawImage(Image.FromFile(_cornerDownRight), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerDownRight), CursorH, CursorV, 40, 40);
                                 break;
                         }
 
-                        orientation++;
-                        if (orientation > 3)
+                        Orientation++;
+                        if (Orientation > 3)
                         {
-                            orientation = 0;
+                            Orientation = 0;
                         }
 
                     }
                     else if (section.SectionType.Equals(Section.SectionTypes.LeftCorner))
                     {
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
-                                g.DrawImage(Image.FromFile(_cornerRightDown), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerRightDown), CursorH, CursorV, 40, 40);
                                 break;
                             case 1:
-                                g.DrawImage(Image.FromFile(_cornerDownLeft), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerDownLeft), CursorH, CursorV, 40, 40);
                                 break;
                             case 2:
-                                g.DrawImage(Image.FromFile(_cornerDownRight), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerDownRight), CursorH, CursorV, 40, 40);
                                 break;
                             case 3:
-                                g.DrawImage(Image.FromFile(_cornerLeftDown), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_cornerLeftDown), CursorH, CursorV, 40, 40);
                                 break;
                         }
 
-                        orientation--;
-                        if (orientation < 0)
+                        Orientation--;
+                        if (Orientation < 0)
                         {
-                            orientation = 3;
+                            Orientation = 3;
                         }
 
                     }
                     else if (section.SectionType.Equals(Section.SectionTypes.Straight))
                     {
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
-                                g.DrawImage(Image.FromFile(_straightVertical), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_straightVertical), CursorH, CursorV, 40, 40);
                                 break;
                             case 1:
-                                g.DrawImage(Image.FromFile(_straightHorizontal), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_straightHorizontal), CursorH, CursorV, 40, 40);
                                 break;
                             case 2:
-                                g.DrawImage(Image.FromFile(_straightVertical), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_straightVertical), CursorH, CursorV, 40, 40);
                                 break;
                             case 3:
-                                g.DrawImage(Image.FromFile(_straightHorizontal), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_straightHorizontal), CursorH, CursorV, 40, 40);
                                 break;
                         }
                     }
                     else if (section.SectionType.Equals(Section.SectionTypes.Finish))
                     {
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
-                                g.DrawImage(Image.FromFile(_finishNorth), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_finishNorth), CursorH, CursorV, 40, 40);
                                 break;
                             case 1:
-                                g.DrawImage(Image.FromFile(_finishEast), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_finishEast), CursorH, CursorV, 40, 40);
                                 break;
                             case 2:
-                                g.DrawImage(Image.FromFile(_finishSouth), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_finishSouth), CursorH, CursorV, 40, 40);
                                 break;
                             case 3:
-                                g.DrawImage(Image.FromFile(_finishWest), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_finishWest), CursorH, CursorV, 40, 40);
                                 break;
                         }
                     }
                     else if (section.SectionType.Equals(Section.SectionTypes.StartGrid))
                     {
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
-                                g.DrawImage(Image.FromFile(_startHorizontalNorth), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_startHorizontalNorth), CursorH, CursorV, 40, 40);
                                 break;
                             case 1:
-                                g.DrawImage(Image.FromFile(_startHorizontalEast), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_startHorizontalEast), CursorH, CursorV, 40, 40);
                                 break;
                             case 2:
-                                g.DrawImage(Image.FromFile(_startHorizontalSouth), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_startHorizontalSouth), CursorH, CursorV, 40, 40);
                                 break;
                             case 3:
-                                g.DrawImage(Image.FromFile(_startHorizontalWest), cursorH, cursorV, 40, 40);
+                                g.DrawImage(Image.FromFile(_startHorizontalWest), CursorH, CursorV, 40, 40);
                                 break;
                         }
                     }
@@ -177,68 +174,68 @@ namespace WpfApp
 
                     if (driversInSection[0] != null)
                     {
-                        Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[0], true));
+                        Bitmap bmp = (Bitmap)Bitmap.FromFile(GetCar(driversInSection[0], true));
 
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
                                 bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                                g.DrawImage(bmp, cursorH + 10, cursorV + 5, 8, 16);
+                                g.DrawImage(bmp, CursorH + 10, CursorV + 5, 8, 16);
                                 break;
                             case 1:
-                                g.DrawImage(bmp, cursorH + 10, cursorV + 10, 16, 8);
+                                g.DrawImage(bmp, CursorH + 10, CursorV + 10, 16, 8);
                                 break;
                             case 2:
                                 bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                g.DrawImage(bmp, cursorH + 10, cursorV + 10, 8, 16);
+                                g.DrawImage(bmp, CursorH + 10, CursorV + 10, 8, 16);
                                 break;
                             case 3:
                                 bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                                g.DrawImage(bmp, cursorH + 5, cursorV + 10, 16, 8);
+                                g.DrawImage(bmp, CursorH + 5, CursorV + 10, 16, 8);
                                 break;
                         }
                     }
 
                     if (driversInSection[1] != null)
                     {
-                        Bitmap bmp = (Bitmap)Bitmap.FromFile(getCar(driversInSection[1], true));
+                        Bitmap bmp = (Bitmap)Bitmap.FromFile(GetCar(driversInSection[1], true));
 
-                        switch (orientation)
+                        switch (Orientation)
                         {
                             case 0:
                                 bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                                g.DrawImage(bmp, cursorH + 20, cursorV + 5, 8, 16);
+                                g.DrawImage(bmp, CursorH + 20, CursorV + 5, 8, 16);
                                 break;
                             case 1:
-                                g.DrawImage(bmp, cursorH + 10, cursorV + 20, 16, 8);
+                                g.DrawImage(bmp, CursorH + 10, CursorV + 20, 16, 8);
                                 break;
                             case 2:
                                 bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                                g.DrawImage(bmp, cursorH + 20, cursorV + 10, 8, 16);
+                                g.DrawImage(bmp, CursorH + 20, CursorV + 10, 8, 16);
                                 break;
                             case 3:
                                 bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                                g.DrawImage(bmp, cursorH + 5, cursorV + 20, 16, 8);
+                                g.DrawImage(bmp, CursorH + 5, CursorV + 20, 16, 8);
                                 break;
                         }
                     }
 
-                    //Veranderd cursorH of cursorV, gekeken naaar de kant waar hij naartoe staat
-                    if (orientation == 0)
+                    //Veranderd CursorH of CursorV, gekeken naaar de kant waar hij naartoe staat
+                    if (Orientation == 0)
                     {
-                        cursorV -= 40;
+                        CursorV -= 40;
                     }
-                    else if (orientation == 1)
+                    else if (Orientation == 1)
                     {
-                        cursorH += 40;
+                        CursorH += 40;
                     }
-                    else if (orientation == 2)
+                    else if (Orientation == 2)
                     {
-                        cursorV += 40;
+                        CursorV += 40;
                     }
                     else
                     {
-                        cursorH -= 40;
+                        CursorH -= 40;
                     }
                 }
             }
@@ -276,56 +273,56 @@ namespace WpfApp
             int laagsteX = 0;
             int laagsteY = 0;
 
-            cursorH = 0;
-            cursorV = 0;
+            CursorH = 0;
+            CursorV = 0;
 
             // Het tekenen van de baan op de juiste plekken
             foreach (Section section in track.Sections)
             {
                 if (section.SectionType.Equals(Section.SectionTypes.RightCorner))
                 {
-                    orientation++;
-                    if (orientation > 3)
+                    Orientation++;
+                    if (Orientation > 3)
                     {
-                        orientation = 0;
+                        Orientation = 0;
                     }
 
                 }
                 else if (section.SectionType.Equals(Section.SectionTypes.LeftCorner))
                 {
-                    orientation--;
-                    if (orientation < 0)
+                    Orientation--;
+                    if (Orientation < 0)
                     {
-                        orientation = 3;
+                        Orientation = 3;
                     }
 
                 }
 
-                if (orientation == 0)
+                if (Orientation == 0)
                 {
-                    cursorV -= 40;
+                    CursorV -= 40;
                 }
-                else if (orientation == 1)
+                else if (Orientation == 1)
                 {
-                    cursorH += 40;
+                    CursorH += 40;
                 }
-                else if (orientation == 2)
+                else if (Orientation == 2)
                 {
-                    cursorV += 40;
+                    CursorV += 40;
                 }
                 else
                 {
-                    cursorH -= 40;
+                    CursorH -= 40;
                 }
 
-                if (cursorH < laagsteX)
+                if (CursorH < laagsteX)
                 {
-                    laagsteX = cursorH;
+                    laagsteX = CursorH;
                 }
 
-                if (cursorV < laagsteY)
+                if (CursorV < laagsteY)
                 {
-                    laagsteY = cursorV;
+                    laagsteY = CursorV;
                 }
             }
 
@@ -338,13 +335,13 @@ namespace WpfApp
                 laagsteY *= -1;
             }
 
-            cursorH = laagsteX;
-            cursorV = laagsteY;
+            CursorH = laagsteX;
+            CursorV = laagsteY;
         }
 
         public static IParticipant[] CheckForDrivers(Section section)
         {
-            SectionData data = Data.CurrentRace.GetSectionData(section, Data.CurrentRace.Positions);
+            SectionData data = Race.GetSectionData(section, Data.CurrentRace.Positions);
             IParticipant[] participants = new IParticipant[2];
 
             if (data.Left != null)
@@ -360,7 +357,7 @@ namespace WpfApp
             return participants;
         }
 
-        public static string getCar(IParticipant p, bool countBroken)
+        public static string GetCar(IParticipant p, bool countBroken)
         {
             bool broken = p.Car.IsBroken;
 

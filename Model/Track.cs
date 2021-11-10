@@ -6,11 +6,11 @@ namespace Model
 {
     public class Track
     {
-        public string Name { get; set; }
-        public LinkedList<Section> Sections { get; set; }
-        public int StartOrientation { get; set; }
+        public string Name { get; private set; }
+        public LinkedList<Section> Sections { get; private set; }
+        public int StartOrientation { get; private set; }
 
-        public Track (String name, SectionTypes[] sections, int startOrientation)
+        public Track (string name, SectionTypes[] sections, int startOrientation)
         {
             Name = name;
             Sections = new LinkedList<Section>();
@@ -20,13 +20,13 @@ namespace Model
         }
 
         //Zet een array van sectionTypes om naar een linkedlist van sections
-        private LinkedList<Section> ChangeTypesToSections(SectionTypes[] sections)
+        private static LinkedList<Section> ChangeTypesToSections(SectionTypes[] sections)
         {
-            LinkedList<Section> S = new LinkedList<Section>();
+            LinkedList<Section> S = new();
 
             foreach (SectionTypes section in sections)
             {
-                Section newSection = new Section
+                Section newSection = new()
                 {
                     SectionType = section
                 };

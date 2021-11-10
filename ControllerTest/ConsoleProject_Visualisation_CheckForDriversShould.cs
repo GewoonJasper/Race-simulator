@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Console_project;
 using Controller;
 using Model;
@@ -49,7 +45,7 @@ namespace ControllerTest
 
             Track[] tracks = new Track[] { track1 };
 
-            Competition comp = new Competition();
+            Competition comp = new();
 
             Data.Initialize(comp, drivers, tracks);
 
@@ -92,7 +88,7 @@ namespace ControllerTest
         [Test]
         public void CheckForDrivers_OneDriverNotOnStart_ReturnDriversOnStartAndOtherDriver()
         {
-            SectionData sd = new SectionData();
+            SectionData sd = new();
             sd.Left = driver1;
 
             Data.CurrentRace.Positions.Add(track1.Sections.ElementAt(6), sd);
