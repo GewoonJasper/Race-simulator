@@ -15,7 +15,7 @@ namespace Controller
         public Track Track { get; set; }
         public List<IParticipant> Participants { get; set; }
         public DateTime StartTime { get; set; }
-        private Timer _timer { get; set; }
+        private Timer _timer;
         private Random _random;
         public bool IsGepauzeerd { get; private set; }
         
@@ -32,17 +32,17 @@ namespace Controller
             }
         }
 
-        private int _sectionLength;
-        private int _raceLenght;
+        public int SectionLength { get; private set; }
+        public int RaceLength { get; private set; }
         public int MaxLaps { get; private set; }
-        private int _points { get; set; }
+        public int MaxPoints { get; private set; }
 
         // Constructor klasse Race
         public Race(Track track, List<IParticipant> participants)
         {
             Track = track;
             StartTime = DateTime.Now;
-            _random = new Random(DateTime.Now.Millisecond);
+            _random = new Random(StartTime.Millisecond);
 
             _timer = new Timer(500);
             _timer.Elapsed += OnTimedEvent;
@@ -54,7 +54,7 @@ namespace Controller
 
             Positions = GetStartPositions(track, participants);
             RandomizeEquipment();
-            SetRaceParams(track);
+            SetRaceParams(track, 80, 5000);
 
             StartTimer();
         }
@@ -106,7 +106,7 @@ namespace Controller
 
                 if (sectie.SectionType.Equals(Section.SectionTypes.StartGrid)) // Kijkt eerst of de sectie wel een startgrid is
                 {
-                    SectionData GridData = GetSectionData(sectie, _positions);
+                    SectionData GridData = GetSectionData(sectie, Positions);
                     int i = 0; // tijdelijke variabele, hij mag maar 2 keer drivers per sectie neerzetten
 
                     while (i < 2)
@@ -116,13 +116,11 @@ namespace Controller
                             if (GridData.Left == null)
                             {
                                 GridData.Left = participants[Driver];
-                                //_positions[sectie] = GridData;
                                 tempDictionary[sectie] = GridData;
                             }
                             else if (GridData.Right == null)
                             {
                                 GridData.Right = participants[Driver];
-                                //_positions[sectie] = GridData;
                                 tempDictionary[sectie] = GridData;
                             }
                             p.Add(participants[Driver]);
@@ -141,21 +139,20 @@ namespace Controller
         }
 
         //Zet de lengte van elke sectie, de gehele raceafstand en het maximaal aantal laps dat gereden moet worden
-        public void SetRaceParams(Track track)
+        public void SetRaceParams(Track track, int lengteSectie, int lengteRace)
         {
             foreach (IParticipant p in Participants)
             {
                 p.Laps = 0;
             }
-            _sectionLength = 80;
-            _raceLenght = 5000;
-            MaxLaps = _raceLenght / (track.Sections.Count * _sectionLength);
-            if (MaxLaps < 2)
-            {
-                MaxLaps = 2;
-            }
 
-            _points = Participants.Count * 2;
+            SectionLength = lengteSectie > 0 ? lengteSectie : 80;
+            RaceLength = lengteRace > 0 ? lengteRace : 4000;
+
+            int laps = RaceLength / (track.Sections.Count * SectionLength);
+            MaxLaps = laps >= 2 ? laps : 2;
+
+            MaxPoints = Participants.Count * 2;
         }
 
         // Start de timer, en dus de race
@@ -192,7 +189,7 @@ namespace Controller
                 for (int j = Track.Sections.Count - 1; j >= 0; j--)
                 {
                     Section currentSection = Track.Sections.ElementAt(j);
-                    SectionData currentSectionData = GetSectionData(currentSection, _positions);
+                    SectionData currentSectionData = GetSectionData(currentSection, Positions);
 
                     if (currentSectionData.Left != null)
                     {
@@ -230,8 +227,8 @@ namespace Controller
                     nextSection = Track.Sections.ElementAt(j + 1);
                 }
 
-                SectionData currentSectionData = GetSectionData(currentSection, _positions);
-                SectionData nextSectionData = GetSectionData(nextSection, _positions);
+                SectionData currentSectionData = GetSectionData(currentSection, Positions);
+                SectionData nextSectionData = GetSectionData(nextSection, Positions);
 
                 if (currentSectionData.Left != null)
                 {
@@ -244,7 +241,7 @@ namespace Controller
                             int distanceDriven = currentSectionData.Left.Car.Speed *
                                                  currentSectionData.Left.Car.Performance;
 
-                            if (currentSectionData.DistanceLeft + distanceDriven > _sectionLength)
+                            if (currentSectionData.DistanceLeft + distanceDriven > SectionLength)
                             {
                                 if (nextSectionData.Left == null)
                                 {
@@ -255,7 +252,7 @@ namespace Controller
 
                                     nextSectionData.Left = currentSectionData.Left;
                                     nextSectionData.DistanceLeft =
-                                        distanceDriven - (_sectionLength - currentSectionData.DistanceLeft);
+                                        distanceDriven - (SectionLength - currentSectionData.DistanceLeft);
                                     currentSectionData.Left = null;
                                     currentSectionData.DistanceLeft = 0;
                                 }
@@ -268,7 +265,7 @@ namespace Controller
 
                                     nextSectionData.Right = currentSectionData.Left;
                                     nextSectionData.DistanceRight =
-                                        distanceDriven - (_sectionLength - currentSectionData.DistanceLeft);
+                                        distanceDriven - (SectionLength - currentSectionData.DistanceLeft);
                                     currentSectionData.Left = null;
                                     currentSectionData.DistanceLeft = 0;
                                 }
@@ -281,8 +278,8 @@ namespace Controller
                     }
                     else
                     {
-                        currentSectionData.Left.Points += _points;
-                        _points -= 2;
+                        currentSectionData.Left.Points += MaxPoints;
+                        MaxPoints -= 2;
                         currentSectionData.Left = null;
                     }
                 }
@@ -298,7 +295,7 @@ namespace Controller
                             int distanceDriven = currentSectionData.Right.Car.Speed *
                                                  currentSectionData.Right.Car.Performance;
 
-                            if (currentSectionData.DistanceRight + distanceDriven > _sectionLength)
+                            if (currentSectionData.DistanceRight + distanceDriven > SectionLength)
                             {
                                 if (nextSectionData.Right == null)
                                 {
@@ -309,7 +306,7 @@ namespace Controller
 
                                     nextSectionData.Right = currentSectionData.Right;
                                     nextSectionData.DistanceRight =
-                                        distanceDriven - (_sectionLength - currentSectionData.DistanceRight);
+                                        distanceDriven - (SectionLength - currentSectionData.DistanceRight);
                                     currentSectionData.Right = null;
                                     currentSectionData.DistanceRight = 0;
                                 }
@@ -322,7 +319,7 @@ namespace Controller
 
                                     nextSectionData.Left = currentSectionData.Right;
                                     nextSectionData.DistanceLeft =
-                                        distanceDriven - (_sectionLength - currentSectionData.DistanceRight);
+                                        distanceDriven - (SectionLength - currentSectionData.DistanceRight);
                                     currentSectionData.Right = null;
                                     currentSectionData.DistanceRight = 0;
                                 }
@@ -335,8 +332,8 @@ namespace Controller
                     }
                     else
                     {
-                        currentSectionData.Right.Points += _points;
-                        _points -= 2;
+                        currentSectionData.Right.Points += MaxPoints;
+                        MaxPoints -= 2;
                         currentSectionData.Right = null;
                     }
                 }
@@ -345,7 +342,7 @@ namespace Controller
             // Event, roept de methode OnDriversChanged aan in Visualisation, welke de baan tekent
             DriversChanged?.Invoke(this, dcArgs);
             
-            if (_points == 0)
+            if (MaxPoints == 0)
             {
                 RaceOver();
             }

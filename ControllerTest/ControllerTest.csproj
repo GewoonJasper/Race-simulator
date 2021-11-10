@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Console project\Console project.csproj" />
     <ProjectReference Include="..\Controller\Controller.csproj" />
   </ItemGroup>
 

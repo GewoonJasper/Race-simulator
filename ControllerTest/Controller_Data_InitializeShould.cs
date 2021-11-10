@@ -9,6 +9,8 @@ namespace ControllerTest
     [TestFixture]
     class Controller_Data_InitializeShould
     {
+        private Competition competition;
+
         private Driver[] drivers;
         private Track[] tracks;
 
@@ -24,6 +26,8 @@ namespace ControllerTest
         [SetUp]
         public void SetUp()
         {
+            competition = new Competition();
+
             driver1 = new Driver("Verstappen", 0, IParticipant.TeamColors.Blue);
             driver2 = new Driver("Hamilton", 0, IParticipant.TeamColors.Grey);
             driver3 = new Driver("Norris", 0, IParticipant.TeamColors.Yellow);
@@ -47,7 +51,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             track2 = new Track("Epictrack", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
@@ -76,7 +80,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             track3 = new Track("Bridges", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
@@ -105,7 +109,7 @@ namespace ControllerTest
                 SectionTypes.LeftCorner,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
 
             tracks = new Track[] { track1, track2, track3 };
         }
@@ -113,7 +117,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddNothing_ReturnEmpty()
         {
-            Data.Initialize(null, null);
+            Data.Initialize(competition, null, null);
 
             Assert.IsEmpty(Data.Competition.Participants);
             Assert.IsEmpty(Data.Competition.Tracks);
@@ -122,7 +126,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddEmptyTrack_ReturnEmpty()
         {
-            Data.Initialize(null, Array.Empty<Track>());
+            Data.Initialize(competition, null, Array.Empty<Track>());
 
             Assert.IsEmpty(Data.Competition.Participants);
             Assert.IsEmpty(Data.Competition.Tracks);
@@ -131,7 +135,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddEmptyDriver_ReturnEmpty()
         {
-            Data.Initialize(Array.Empty<Driver>(), null);
+            Data.Initialize(competition, Array.Empty<Driver>(), null);
 
             Assert.IsEmpty(Data.Competition.Participants);
             Assert.IsEmpty(Data.Competition.Tracks);
@@ -140,7 +144,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddEmptyBoth_ReturnEmpty()
         {
-            Data.Initialize(Array.Empty<Driver>(), Array.Empty<Track>());
+            Data.Initialize(competition, Array.Empty<Driver>(), Array.Empty<Track>());
 
             Assert.IsEmpty(Data.Competition.Participants);
             Assert.IsEmpty(Data.Competition.Tracks);
@@ -149,7 +153,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddOnlyTracks_ReturnOnlyTrack()
         {
-            Data.Initialize(null, tracks);
+            Data.Initialize(competition, null, tracks);
 
             Assert.IsEmpty(Data.Competition.Participants);
             Assert.AreEqual(tracks, Data.Competition.Tracks);
@@ -158,7 +162,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddOnlyDrivers_ReturnOnlyDrivers()
         {
-            Data.Initialize(drivers, null);
+            Data.Initialize(competition, drivers, null);
 
             Assert.IsEmpty(Data.Competition.Tracks);
             Assert.AreEqual(drivers, Data.Competition.Participants);
@@ -167,7 +171,7 @@ namespace ControllerTest
         [Test]
         public void Initialize_AddBoth_ReturnBoth()
         {
-            Data.Initialize(drivers, tracks);
+            Data.Initialize(competition, drivers, tracks);
 
             Assert.AreEqual(tracks, Data.Competition.Tracks);
             Assert.AreEqual(drivers, Data.Competition.Participants);

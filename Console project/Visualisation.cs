@@ -6,9 +6,9 @@ namespace Console_project
 {
     public static class Visualisation
     {
-        public static int cursorH; // 0,0 is linksboven
-        public static int cursorV; // 0,0 is linksboven
-        public static int orientation; // 0 = N, 1 = E, 2 = S, 3 = W
+        public static int CursorH { get; private set; } // 0,0 is linksboven
+        public static int CursorV { get; private set; } // 0,0 is linksboven
+        public static int Orientation { get; private set; } // 0 = N, 1 = E, 2 = S, 3 = W
 
         // Alle mogelijkheden getekend in stringarrays
         #region graphics
@@ -142,8 +142,6 @@ namespace Console_project
         // Tekent de baan
         public static void DrawTrack(Track track)
         {
-            orientation = track.StartOrientation;
-
             CheckTrackPosition(track);
 
             Console.CursorVisible = false; // Zorgt ervoor dat je de cursor niet de hele tijd heen en weer ziet springen
@@ -160,8 +158,8 @@ namespace Console_project
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        switch (orientation)
+                        Console.SetCursorPosition(CursorH * 8, CursorV * 8 + i);
+                        switch (Orientation)
                         {
                             case 0:
                                 SectionLine = ChangeString(_cornerLeftDown[i], driversInSection[0], driversInSection[1]);
@@ -182,10 +180,10 @@ namespace Console_project
                         }
                     }
 
-                    orientation++;
-                    if (orientation > 3)
+                    Orientation++;
+                    if (Orientation > 3)
                     {
-                        orientation = 0;
+                        Orientation = 0;
                     }
 
                 }
@@ -193,8 +191,8 @@ namespace Console_project
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        switch (orientation)
+                        Console.SetCursorPosition(CursorH * 8, CursorV * 8 + i);
+                        switch (Orientation)
                         {
                             case 0:
                                 SectionLine = ChangeString(_cornerRightDown[i], driversInSection[0], driversInSection[1]);
@@ -215,10 +213,10 @@ namespace Console_project
                         }
                     }
 
-                    orientation--;
-                    if (orientation < 0)
+                    Orientation--;
+                    if (Orientation < 0)
                     {
-                        orientation = 3;
+                        Orientation = 3;
                     }
 
                 }
@@ -226,8 +224,8 @@ namespace Console_project
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        switch (orientation)
+                        Console.SetCursorPosition(CursorH * 8, CursorV * 8 + i);
+                        switch (Orientation)
                         {
                             case 0:
                                 SectionLine = ChangeString(_straightVertical[i], driversInSection[0], driversInSection[1]);
@@ -252,8 +250,8 @@ namespace Console_project
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        switch (orientation)
+                        Console.SetCursorPosition(CursorH * 8, CursorV * 8 + i);
+                        switch (Orientation)
                         {
                             case 0:
                                 SectionLine = ChangeString(_finishVertical[i], driversInSection[0], driversInSection[1]);
@@ -278,8 +276,8 @@ namespace Console_project
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        Console.SetCursorPosition(cursorH * 8, cursorV * 8 + i);
-                        switch (orientation)
+                        Console.SetCursorPosition(CursorH * 8, CursorV * 8 + i);
+                        switch (Orientation)
                         {
                             case 0:
                                 SectionLine = ChangeString(_startVertical[i], driversInSection[0], driversInSection[1]);
@@ -301,22 +299,22 @@ namespace Console_project
                     }
                 }
 
-                //Veranderd cursorH of cursorV, gekeken naaar de kant waar hij naartoe staat
-                if (orientation == 0)
+                //Veranderd CursorH of CursorV, gekeken naaar de kant waar hij naartoe staat
+                if (Orientation == 0)
                 {
-                    cursorV--;
+                    CursorV--;
                 } 
-                else if (orientation == 1)
+                else if (Orientation == 1)
                 {
-                    cursorH++;
+                    CursorH++;
                 } 
-                else if (orientation == 2)
+                else if (Orientation == 2)
                 {
-                    cursorV++;
+                    CursorV++;
                 } 
                 else
                 {
-                    cursorH--;
+                    CursorH--;
                 }
             }
         }
@@ -324,59 +322,61 @@ namespace Console_project
         // Checkt hoe ver de baan van de kant af moet zijn
         public static void CheckTrackPosition(Track track)
         {
+            Orientation = track.StartOrientation;
+
             int laagsteX = 0;
             int laagsteY = 0;
 
-            cursorH = 0;
-            cursorV = 0;
+            CursorH = 0;
+            CursorV = 0;
 
             // Het tekenen van de baan op de juiste plekken
             foreach (Section section in track.Sections)
             {
                 if (section.SectionType.Equals(Section.SectionTypes.RightCorner))
                 {
-                    orientation++;
-                    if (orientation > 3)
+                    Orientation++;
+                    if (Orientation > 3)
                     {
-                        orientation = 0;
+                        Orientation = 0;
                     }
 
                 }
                 else if (section.SectionType.Equals(Section.SectionTypes.LeftCorner))
                 {
-                    orientation--;
-                    if (orientation < 0)
+                    Orientation--;
+                    if (Orientation < 0)
                     {
-                        orientation = 3;
+                        Orientation = 3;
                     }
 
                 }
 
-                if (orientation == 0)
+                if (Orientation == 0)
                 {
-                    cursorV--;
+                    CursorV--;
                 }
-                else if (orientation == 1)
+                else if (Orientation == 1)
                 {
-                    cursorH++;
+                    CursorH++;
                 }
-                else if (orientation == 2)
+                else if (Orientation == 2)
                 {
-                    cursorV++;
+                    CursorV++;
                 }
                 else
                 {
-                    cursorH--;
+                    CursorH--;
                 }
 
-                if (cursorH < laagsteX)
+                if (CursorH < laagsteX)
                 {
-                    laagsteX = cursorH;
+                    laagsteX = CursorH;
                 }
 
-                if (cursorV < laagsteY)
+                if (CursorV < laagsteY)
                 {
-                    laagsteY = cursorV;
+                    laagsteY = CursorV;
                 }
             }
 
@@ -389,8 +389,8 @@ namespace Console_project
                 laagsteY *= -1;
             }
 
-            cursorH = laagsteX + 1;
-            cursorV = laagsteY + 1;
+            CursorH = laagsteX + 1;
+            CursorV = laagsteY + 1;
         }
 
         // Checkt voor de drivers in een sectie, kan max 2 drivers returnen

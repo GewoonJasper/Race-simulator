@@ -135,7 +135,7 @@ namespace Console_project
                 SectionTypes.RightCorner,
                 SectionTypes.StartGrid,
                 SectionTypes.StartGrid,
-                SectionTypes.StartGrid
+                SectionTypes.StartGrid,
             }, 2);
 
             //Track[] tracks = { track4, track1, track2, track3 };
@@ -143,7 +143,7 @@ namespace Console_project
 
             Data.RaceChanged += Visualisation.OnRaceChanged;
 
-            Data.Initialize(drivers, tracks);
+            Data.Initialize(new Competition(), drivers, tracks);
 
             Data.NextRace(Data.Competition);
 

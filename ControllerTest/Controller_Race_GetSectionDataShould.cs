@@ -34,7 +34,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             _race = new Race(_track1, new List<IParticipant>());
 
             _positions = new Dictionary<Section, SectionData>();

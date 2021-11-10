@@ -12,9 +12,9 @@ namespace Controller
         public static EventHandler RaceChanged { get; set; }
 
         // Initialiseert de klasse Data, door drivers en tracks aan te maken en aan de competitie toe te voegen
-        public static void Initialize (Driver[] drivers, Track[] tracks)
+        public static void Initialize (Competition competition, Driver[] drivers, Track[] tracks)
         {
-            Competition = new Competition();
+            Competition = competition;
 
             AddParticipants(drivers, Competition);
             AddTracks(tracks, Competition);
@@ -52,7 +52,7 @@ namespace Controller
             if (track != null)
             {
                 CurrentRace = new Race(track, competition.Participants);
-                RaceChanged(CurrentRace, new EventArgs());
+                RaceChanged?.Invoke(CurrentRace, new EventArgs());
             }
             else
             {

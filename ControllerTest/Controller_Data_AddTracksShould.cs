@@ -43,7 +43,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             Track[] tracks = new Track[] { track1 };
             Controller.Data.AddTracks(tracks, _competition);
             Assert.AreEqual(tracks, _competition.Tracks);
@@ -68,7 +68,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             Track track2 = new Track("Epictrack", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
@@ -89,7 +89,7 @@ namespace ControllerTest
                 SectionTypes.RightCorner,
                 SectionTypes.Straight,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             Track[] tracks = new Track[] { track1, track2 };
             Controller.Data.AddTracks(tracks, _competition);
             Assert.AreEqual(tracks, _competition.Tracks);

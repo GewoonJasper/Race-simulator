@@ -158,7 +158,7 @@ namespace WpfApp
 
             Data.RaceChanged += OnRaceChanged;
 
-            Data.Initialize(drivers, tracks);
+            Data.Initialize(new Competition(), drivers, tracks);
 
             Data.NextRace(Data.Competition);
         }

@@ -37,7 +37,7 @@ namespace ControllerTest
                 SectionTypes.Straight,
                 SectionTypes.RightCorner,
                 SectionTypes.RightCorner
-            });
+            }, 1);
             track2 = new Track("Epictrack", new SectionTypes[]
             {
                 SectionTypes.StartGrid,
@@ -58,7 +58,7 @@ namespace ControllerTest
                 SectionTypes.RightCorner,
                 SectionTypes.Straight,
                 SectionTypes.RightCorner
-            });
+            }, 1);
 
             Data.RaceChanged += OnRaceChanged;
         }
